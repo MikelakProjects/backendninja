@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>THYMELEAF</title>
+</head>
+<body>
+	<!-- Usamos el motor de plantillas Thymeleaf, que se integra perfectamente en Spring -->
+	<table>
+		<thead>
+			<tr>
+				<th>NAME</th>
+				<th>AGE</th>
+			</tr>
+		</thead>
+		<tbody th:each="person : ${people}">
+			<tr>
+				<td th:text="${person.name}"></td>
+				<td th:text="${person.age}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
