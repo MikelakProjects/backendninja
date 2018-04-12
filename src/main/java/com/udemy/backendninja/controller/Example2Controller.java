@@ -2,6 +2,7 @@ package com.udemy.backendninja.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +15,14 @@ public class Example2Controller {
 	
 	@GetMapping("/request1")
 	public ModelAndView request1(@RequestParam(name="nm", required=false, defaultValue="Desconocido") String name) {
+		ModelAndView mav = new ModelAndView(EXAMPLE2_VIEW);
+		mav.addObject("nm_model", name);
+		return mav;
+	}
+	
+	// Variables en el path (segunda forma de paso de parámetros en una petición GET)
+	@GetMapping("/request2/{nm}")
+	public ModelAndView request2(@PathVariable("nm") String name) {
 		ModelAndView mav = new ModelAndView(EXAMPLE2_VIEW);
 		mav.addObject("nm_model", name);
 		return mav;

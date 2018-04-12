@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>FORM</title>
+</head>
+<body>
+	<!-- En Thymeleaf, las url se preceden de @ -->
+	<form action="#" th:action="@{/example3/addperson}" th:object="${person}" method="post">
+		<!-- Para asignar un valor se utiliza * -->
+		<p>NAME: <input type="text" th:field="*{name}"/></p>
+		<p>AGE: <input type="number" th:field="*{age}"/></p>
+		<input type="submit" value="Submit"/>
+	</form>
+</body>
+</html>
