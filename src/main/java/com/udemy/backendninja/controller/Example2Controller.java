@@ -17,6 +17,7 @@ public class Example2Controller {
 	public ModelAndView request1(@RequestParam(name="nm", required=false, defaultValue="Desconocido") String name) {
 		ModelAndView mav = new ModelAndView(EXAMPLE2_VIEW);
 		mav.addObject("nm_model", name);
+		int i = 2 / 0;
 		return mav;
 	}
 	
