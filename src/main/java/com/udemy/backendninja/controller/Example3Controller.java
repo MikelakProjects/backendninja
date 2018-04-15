@@ -1,5 +1,7 @@
 package com.udemy.backendninja.controller;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,9 @@ import com.udemy.backendninja.model.Person;
 @Controller
 @RequestMapping("/example3")
 public class Example3Controller {
+	
+	// Utilizamos el logging de Apache Commons
+	private static final Log LOGGER = LogFactory.getLog(Example3Controller.class);
 
 	public static final String FORM_VIEW = "form";
 	public static final String RESULT_VIEV = "result";
@@ -41,14 +46,18 @@ public class Example3Controller {
 	
 	@GetMapping("/showform")
 	public String showForm(Model model) {
+		LOGGER.info("Method: 'showForm'  Params: '" + model + "'");
 		model.addAttribute("person", new Person());
 		return FORM_VIEW;
 	}
 	
 	@PostMapping("/addperson")
 	public ModelAndView addPerson(@ModelAttribute("person") Person person) {
+		LOGGER.info("Method: 'addPerson'  Params: '" + person + "'");
 		ModelAndView mav = new ModelAndView(RESULT_VIEV);
 		mav.addObject("person", person);
+		// DEBUG sólo se mostrará si hemos arrancado en modo DEBUG
+		LOGGER.debug("DEBUGGING");
 		return mav;
 	}
 }

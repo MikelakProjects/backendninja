@@ -3,12 +3,15 @@ package com.udemy.backendninja.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.udemy.backendninja.component.ExampleComponent;
 import com.udemy.backendninja.model.Person;
 
 @Controller
@@ -21,6 +24,15 @@ public class ExampleController {
 	 * algún nombre de vista, sólo haya que hacerlo en un único lugar. 
 	 */
 	public static final String EXAMPLE_VIEW = "example";
+	
+	/**
+	 * @Autowired indica a Spring que debe inyectar el bean indicado.
+	 * @Qualifier identifica el nombre que hemos asignado en @Component.
+	 * Al ser inyectado por el entorno, no es necesario hacer un new ExampleComponent
+	 */
+	@Autowired
+	@Qualifier("exampleComponent")
+	private ExampleComponent exampleComponent;
 
 	/**
 	 * La anotación @GetMapping es hija de @RequestMapping, pero lleva ya implícito
@@ -35,6 +47,8 @@ public class ExampleController {
 	 */
 	@GetMapping("/exampleString")
 	public String exampleString(Model model) {
+		// Llamamos al método sayHello del componente inyectado
+		exampleComponent.sayHello();
 		model.addAttribute("people", getPeople());
 		return EXAMPLE_VIEW;
 	}
