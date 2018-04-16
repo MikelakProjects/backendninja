@@ -19,4 +19,6 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(requestTimeInterceptor);
 	}
+	
+	// Aquí haremos pruebas mierdosas para ver cómo funciona Git
 }
