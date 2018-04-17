@@ -21,4 +21,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 	}
 	
 	// Aquí haremos pruebas mierdosas para ver cómo funciona Git
+	// Añadimos otra chorrada
 }
