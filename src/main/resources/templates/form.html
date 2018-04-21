@@ -9,7 +9,9 @@
 	<form action="#" th:action="@{/example3/addperson}" th:object="${person}" method="post">
 		<!-- Para asignar un valor se utiliza * -->
 		<p>NAME: <input type="text" th:field="*{name}"/></p>
+		<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name has errors</p>
 		<p>AGE: <input type="number" th:field="*{age}"/></p>
+		<p th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age has errors</p>
 		<input type="submit" value="Submit"/>
 	</form>
 </body>

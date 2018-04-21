@@ -1,8 +1,5 @@
 package com.udemy.backendninja.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.udemy.backendninja.component.ExampleComponent;
-import com.udemy.backendninja.model.Person;
+import com.udemy.backendninja.service.ExampleService;
 
 @Controller
 @RequestMapping("/example")
@@ -33,6 +30,10 @@ public class ExampleController {
 	@Autowired
 	@Qualifier("exampleComponent")
 	private ExampleComponent exampleComponent;
+	
+	@Autowired
+	@Qualifier("exampleService")
+	private ExampleService exampleService;
 
 	/**
 	 * La anotación @GetMapping es hija de @RequestMapping, pero lleva ya implícito
@@ -49,7 +50,7 @@ public class ExampleController {
 	public String exampleString(Model model) {
 		// Llamamos al método sayHello del componente inyectado
 		exampleComponent.sayHello();
-		model.addAttribute("people", getPeople());
+		model.addAttribute("people", exampleService.getListPeople());
 		return EXAMPLE_VIEW;
 	}
 	
@@ -61,10 +62,13 @@ public class ExampleController {
 	@GetMapping("/exampleMAV")
 	public ModelAndView exampleMAV() {
 		ModelAndView mav = new ModelAndView(EXAMPLE_VIEW);
-		mav.addObject("people", getPeople());
+		mav.addObject("people", exampleService.getListPeople());
 		return mav;
 	}
 	
+	/**
+	 * Quitamos este método de aquí, porque es mejor diseño tener este método en un "Service"
+	 * 
 	private List<Person> getPeople() {
 		List<Person> people = new ArrayList<>();
 		people.add(new Person("Gathu", 15));
@@ -74,4 +78,5 @@ public class ExampleController {
 		people.add(new Person("Zorrupio", 740));
 		return people;
 	}
+	*/
 }

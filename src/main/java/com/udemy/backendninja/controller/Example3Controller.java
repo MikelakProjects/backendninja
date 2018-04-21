@@ -1,9 +1,12 @@
 package com.udemy.backendninja.controller;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,11 +54,28 @@ public class Example3Controller {
 		return FORM_VIEW;
 	}
 	
+	/**
+	 * Validaciones en Spring: @Valid como anotación paramétrica y la interfaz BindingResult, que almacenará el resultado
+	 * de la validación previa a la llamada al método
+	 * @param person
+	 * @param bindingResult
+	 * @return
+	 */
 	@PostMapping("/addperson")
-	public ModelAndView addPerson(@ModelAttribute("person") Person person) {
+	public ModelAndView addPerson(@Valid @ModelAttribute("person") Person person, BindingResult bindingResult) {
+		
 		LOGGER.info("Method: 'addPerson'  Params: '" + person + "'");
-		ModelAndView mav = new ModelAndView(RESULT_VIEV);
-		mav.addObject("person", person);
+		
+		ModelAndView mav = new ModelAndView();
+		// Validación
+		if (bindingResult.hasErrors()) {
+			// En caso de error, junto con la vista se devolverá el BindingResult (la lista "fields" con los errores)
+			mav.setViewName(FORM_VIEW);
+		}
+		else {
+			mav.setViewName(RESULT_VIEV);
+			mav.addObject("person", person);
+		}		
 		// DEBUG sólo se mostrará si hemos arrancado en modo DEBUG
 		LOGGER.debug("DEBUGGING");
 		return mav;
