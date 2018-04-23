@@ -1,5 +1,7 @@
 package com.udemy.backendninja.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,11 +26,13 @@ public class ExampleController {
 	
 	/**
 	 * @Autowired indica a Spring que debe inyectar el bean indicado.
+	 * @Resource también funciona
 	 * @Qualifier identifica el nombre que hemos asignado en @Component.
 	 * Al ser inyectado por el entorno, no es necesario hacer un new ExampleComponent
 	 */
-	@Autowired
-	@Qualifier("exampleComponent")
+	@Resource(name="exampleComponent")
+	// @Autowired
+	// @Qualifier("exampleComponent")
 	private ExampleComponent exampleComponent;
 	
 	@Autowired
